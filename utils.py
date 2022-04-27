@@ -9,12 +9,12 @@ def draw(G, communities):
     print("start_draw")
     G_v2 = nx.Graph()
     for i, community in enumerate(communities, start=1):
-        if len(community) < len(list(G)) * 0.01:
+        if len(community) < len(list(G)) * 0.005:
             continue
         new_node = f"{i}: {len(community)}"
         G_v2.add_node(new_node, size=len(community) * 30)
         for k, other in enumerate(communities[i:], start=i + 1):
-            if len(other) < len(list(G)) * 0.01:
+            if len(other) < len(list(G)) * 0.005:
                 continue
             other_node = f"{k}: {len(other)}"
             if community != other:
