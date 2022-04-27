@@ -43,8 +43,9 @@ def eigenvector(file):
 @click.command("kclique")
 @click.option("--file", default=".data/twitter.csv")
 @click.option("--k", default=5)
-def kclique(file, k):
-    algo.kclique.run(get_graph(file), k)
+@click.option("--small", default=False)
+def kclique(file, k, small):
+    algo.kclique.run(get_graph(file), k, small)
 
 
 @click.command("label_propagation")
