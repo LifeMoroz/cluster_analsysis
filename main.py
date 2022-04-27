@@ -28,7 +28,6 @@ def get_graph(file: str):
     return G
 
 
-
 @click.command("greedy")
 @click.option("--file", default=".data/twitter.csv")
 def greedy(file):
@@ -43,7 +42,7 @@ def eigenvector(file):
 
 @click.command("kclique")
 @click.option("--file", default=".data/twitter.csv")
-@click.option("--k", default=10)
+@click.option("--k", default=5)
 def kclique(file, k):
     algo.kclique.run(get_graph(file), k)
 
