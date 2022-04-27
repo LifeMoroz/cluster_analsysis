@@ -23,7 +23,7 @@ def draw(G, communities):
                 for node in community:
                     size += len(set(G.neighbors(node)).intersection(other))
                 if size:
-                    G_v2.add_edge(new_node, other_node, width=size)
+                    G_v2.add_edge(new_node, other_node, width=math.log10(size))
 
     print("start_draw")
     colors = ["r", "g", "b", "#000000", "#CCCC00", "#0099CC"]
