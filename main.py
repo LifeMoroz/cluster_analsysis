@@ -1,5 +1,6 @@
 import click
 import networkx as nx
+import json
 
 import algo.eigenvector
 import algo.greedy
@@ -13,11 +14,17 @@ import algo.betweness
 def get_graph(data):
     G = nx.Graph()
 
-    with open(data) as f:
-        f.readline()
-        for ids in f:
-            G.add_edge(*ids.strip().split(","))
-    return G
+    if data.endswith('.csv'):
+        with open(data) as f:
+            f.readline()
+            for ids in f:
+                G.add_edge(*ids.strip().split(","))
+        return G
+
+    with open(data, 'r') as f:
+        graph = json.load(f)
+
+    return nx.from_dict_of_lists(graph)
 
 
 @click.command("greedy")
@@ -60,8 +67,9 @@ def walktrap(file):
 
 @click.command("betweness")
 @click.option("--file", default=".data/musae_facebook_edges_1.csv")
-def betweness(file):
-    algo.betweness.run(get_graph(file))
+@click.option("--truncate", default=True)
+def betweness(file, truncate):
+    algo.betweness.run(get_graph(file), truncate)
 
 
 @click.group()
