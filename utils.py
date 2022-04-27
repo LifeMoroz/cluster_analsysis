@@ -5,6 +5,7 @@ from matplotlib import pyplot as plt
 
 
 def draw(G, communities):
+    plt.figure(figsize=(15,15))
     print("start_draw")
     G_v2 = nx.Graph()
     for i, community in enumerate(communities, start=1):
