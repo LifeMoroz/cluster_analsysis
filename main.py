@@ -1,3 +1,5 @@
+import json
+
 import click
 import networkx as nx
 import json
@@ -11,62 +13,62 @@ import algo.walktrap
 import algo.betweness
 
 
-def get_graph(data):
-    G = nx.Graph()
-
-    if data.endswith('.csv'):
-        with open(data) as f:
+def get_graph(file: str):
+    if file.endswith(".csv"):
+        G = nx.Graph()
+        with open(file) as f:
             f.readline()
             for ids in f:
                 G.add_edge(*ids.strip().split(","))
-        return G
+    elif file.endswith(".json"):
+        with open(file) as f:
+            G = nx.from_dict_of_lists(json.loads(f.read(), parse_int=str))
+    else:
+        raise ValueError("Unsupported file format. Only supports .csv and .json")
+    return G
 
-    with open(data, 'r') as f:
-        graph = json.load(f)
-
-    return nx.from_dict_of_lists(graph)
 
 
 @click.command("greedy")
-@click.option("--file", default=".data/musae_facebook_edges_1.csv")
+@click.option("--file", default=".data/twitter.csv")
 def greedy(file):
     algo.greedy.run(get_graph(file))
 
 
 @click.command("eigenvector")
-@click.option("--file", default=".data/musae_facebook_edges_1.csv")
+@click.option("--file", default=".data/twitter.csv")
 def eigenvector(file):
     algo.eigenvector.run(get_graph(file))
 
 
 @click.command("kclique")
-@click.option("--file", default=".data/musae_facebook_edges_1.csv")
+@click.option("--file", default=".data/twitter.csv")
 @click.option("--k", default=10)
 def kclique(file, k):
     algo.kclique.run(get_graph(file), k)
 
 
 @click.command("label_propagation")
-@click.option("--file", default=".data/musae_facebook_edges_1.csv")
+@click.option("--file", default=".data/twitter.csv")
 def label_propagation(file):
     algo.label_propagation.run(get_graph(file))
 
 
 @click.command("spectral_clustering")
-@click.option("--file", default=".data/musae_facebook_edges_1.csv")
+@click.option("--file", default=".data/twitter.csv")
 @click.option("--kmax", default=10)
 def spectral_clustering(file, kmax):
     algo.spectral_clustering.run(get_graph(file), kmax)
 
 
 @click.command("walktrap")
-@click.option("--file", default=".data/musae_facebook_edges_1.csv")
+@click.option("--file", default=".data/twitter.csv")
 def walktrap(file):
     algo.walktrap.run(get_graph(file))
 
 
 @click.command("betweness")
-@click.option("--file", default=".data/musae_facebook_edges_1.csv")
+@click.option("--file", default=".data/twitter.csv")
 @click.option("--truncate", default=True)
 def betweness(file, truncate):
     algo.betweness.run(get_graph(file), truncate)

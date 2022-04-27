@@ -3,7 +3,7 @@ import random
 import networkx as nx
 
 G = nx.Graph()
-with open('.data/musae_facebook_edges.csv') as f, open('.data/musae_facebook_edges_1.csv', 'w+') as w:
+with open('.data/facebook.csv') as f, open('.data/twitter.csv', 'w+') as w:
     w.write(f.readline())
     for r in f:
         G.add_edge(*r.strip().split(","))
