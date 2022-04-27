@@ -5,11 +5,11 @@ from matplotlib import pyplot as plt
 
 
 def draw(G, communities):
-    plt.figure(figsize=(15,15))
+    plt.figure(figsize=(15, 15))
     print("start_draw")
     G_v2 = nx.Graph()
     for i, community in enumerate(communities, start=1):
-        if len(community) < 100:
+        if len(community) < len(list(G)) * 0.01:
             continue
         new_node = f"{i}: {len(community)}"
         G_v2.add_node(new_node, size=len(community))
