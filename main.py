@@ -7,6 +7,7 @@ import algo.kclique
 import algo.label_propagation
 import algo.spectral_clustering
 import algo.walktrap
+import algo.betweness
 
 
 def get_graph(data):
@@ -57,6 +58,12 @@ def walktrap(file):
     algo.walktrap.run(get_graph(file))
 
 
+@click.command("betweness")
+@click.option("--file", default=".data/musae_facebook_edges_1.csv")
+def betweness(file):
+    algo.betweness.run(get_graph(file))
+
+
 @click.group()
 def cli():
     pass
@@ -68,6 +75,7 @@ cli.add_command(kclique)
 cli.add_command(label_propagation)
 cli.add_command(spectral_clustering)
 cli.add_command(walktrap)
+cli.add_command(betweness)
 
 
 if __name__ == "__main__":
