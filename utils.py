@@ -12,9 +12,9 @@ def draw(G, communities):
         if len(community) < len(list(G)) * 0.01:
             continue
         new_node = f"{i}: {len(community)}"
-        G_v2.add_node(new_node, size=len(community))
+        G_v2.add_node(new_node, size=len(community) * 30)
         for k, other in enumerate(communities[i:], start=i + 1):
-            if len(other) < 100:
+            if len(other) < len(list(G)) * 0.01:
                 continue
             other_node = f"{k}: {len(other)}"
             if community != other:
@@ -23,7 +23,7 @@ def draw(G, communities):
                 for node in community:
                     size += len(set(G.neighbors(node)).intersection(other))
                 if size:
-                    G_v2.add_edge(new_node, other_node, width=math.log10(size))
+                    G_v2.add_edge(new_node, other_node, width=size)
 
     print("start_draw")
     colors = ["r", "g", "b", "#000000", "#CCCC00", "#0099CC"]
